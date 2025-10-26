@@ -36,6 +36,7 @@ jobs:
 
       - name: Create file
         run: |
+          mkdir -r other-branch-path/src/lib/data/
           touch other-branch-path/src/lib/data/experimental.txt
           date +"%Y-%m-%d %H:%M:%S" > other-branch-path/src/lib/data/experimental.txt
           echo "Created file with date and time"
