@@ -1,0 +1,30 @@
+---
+name: Other
+
+on:
+  push:
+    branches:
+      - other-branch
+    tags:
+      - '**'
+  pull_request:
+    branches:
+      - other-branch
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}@${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  other-job:
+    name: Other branch job name
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read file
+        run: |
