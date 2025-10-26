@@ -24,12 +24,12 @@ defaults:
     shell: bash
 
 jobs:
-  get-upstream-matrix:
-    name: Acquire matrix of upstream modes
+  main-job:
+    name: Main job name
     runs-on: ubuntu-latest
     steps:
       - name: Create file
         run: |
-        
+
       - name: Push to other-branch
         run: |
