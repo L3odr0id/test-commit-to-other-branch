@@ -44,15 +44,24 @@ jobs:
       - name: Bot Details
         id: bot-details
         uses: raven-actions/bot-details@v1
+      
+      - name: Commit & push
+        run: |
+          cd other-branch-path
+          git config --global user.name "${{ steps.bot-details.outputs.name }}"
+          git config --global user.email "${{ steps.bot-details.outputs.email }}"
+          git add src/lib/data/experimental.txt
+          git commit -m "[ bot ] Update runs statistics"
+          git push
 
-      - name: Push to other-branch
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: >
-            [ bot ] Update runs statistics
-          commit_user_name: ${{ steps.bot-details.outputs.name }}
-          commit_user_email: ${{ steps.bot-details.outputs.email }}
-          commit_author: ${{ steps.bot-details.outputs.name-email }}
-          branch: other-branch
-          repository: other-branch-path
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Push to other-branch
+      #   uses: stefanzweifel/git-auto-commit-action@v7
+      #   with:
+      #     commit_message: >
+      #       [ bot ] Update runs statistics
+      #     commit_user_name: ${{ steps.bot-details.outputs.name }}
+      #     commit_user_email: ${{ steps.bot-details.outputs.email }}
+      #     commit_author: ${{ steps.bot-details.outputs.name-email }}
+      #     branch: other-branch
+      #     repository: other-branch-path
+      #     token: ${{ secrets.GITHUB_TOKEN }}
