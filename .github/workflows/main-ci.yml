@@ -1,0 +1,35 @@
+---
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - '**'
+  pull_request:
+    branches:
+      - main
+      - master
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}@${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  get-upstream-matrix:
+    name: Acquire matrix of upstream modes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create file
+        run: |
+        
+      - name: Push to other-branch
+        run: |
