@@ -55,3 +55,4 @@ jobs:
           commit_author: ${{ steps.bot-details.outputs.name-email }}
           branch: other-branch
           repository: other-branch-path
+          token: ${{ secrets.GITHUB_TOKEN }}
