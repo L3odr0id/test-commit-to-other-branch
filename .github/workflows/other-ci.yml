@@ -1,17 +1,12 @@
----
 name: Other
 
 on:
   push:
     branches:
       - other-branch
-    tags:
-      - '**'
-  pull_request:
-    branches:
-      - other-branch
 
-permissions: read-all
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}@${{ github.ref }}
@@ -23,8 +18,13 @@ defaults:
 
 jobs:
   other-job:
-    name: Other branch job name
+    name: Read and print file content
     runs-on: ubuntu-latest
     steps:
-      - name: Read file
+      - name: Checkout other-branch
+        uses: actions/checkout@v4
+
+      - name: Read file content
         run: |
+          echo "File content of src/lib/data/experimental.txt:"
+          cat src/lib/data/experimental.txt
