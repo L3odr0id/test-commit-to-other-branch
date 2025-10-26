@@ -27,9 +27,29 @@ jobs:
   main-job:
     name: Main job name
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
+      - name: Clone other-branch
+        run: |
+          git clone https://github.com/L3odr0id/test-commit-to-other-branch.git --branch other-branch --single-branch other-branch-path
+
       - name: Create file
         run: |
+          date +"%Y-%m-%d %H:%M:%S" > other-branch/src/lib/data/experimental.txt
+          echo "Created file with date and time"
+      
+      - name: Bot Details
+        id: bot-details
+        uses: raven-actions/bot-details@v1
 
       - name: Push to other-branch
-        run: |
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: >
+            [ bot ] Update runs statistics
+          commit_user_name: ${{ steps.bot-details.outputs.name }}
+          commit_user_email: ${{ steps.bot-details.outputs.email }}
+          commit_author: ${{ steps.bot-details.outputs.name-email }}
+          branch: other-branch
+          repository: other-branch-path
