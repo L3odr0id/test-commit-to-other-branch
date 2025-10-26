@@ -52,7 +52,8 @@ jobs:
           git config --global user.email "${{ steps.bot-details.outputs.email }}"
           git add src/lib/data/experimental.txt
           git commit -m "[ bot ] Update runs statistics"
-          git push
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push origin other-branch
 
       # - name: Push to other-branch
       #   uses: stefanzweifel/git-auto-commit-action@v7
